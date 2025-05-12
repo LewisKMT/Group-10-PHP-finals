@@ -19,9 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = "Invalid email format.";
     }
-    // Password validation
-    elseif (strlen($password) < 6) {
-        $error = "Password must be at least 6 characters.";
+    // Strong password validation
+    elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $password)) {
+        $error = "Password must be at least 8 characters and include uppercase, lowercase, number, and special character.";
     }
     else {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -45,6 +45,7 @@ $conn->close();
     <h2>Sign Up</h2>
     <?php if ($error) echo "<p style='color:red;'>$error</p>"; ?>
     Email: <input type="email" name="email" required><br><br>
-    Password (min 6 chars): <input type="password" name="password" required><br><br>
+    Password: <input type="password" name="password" required><br>
+    <small>Password must be at least 8 characters and include uppercase, lowercase, number, and special character.</small><br><br>
     <button type="submit">Sign Up</button>
 </form>
