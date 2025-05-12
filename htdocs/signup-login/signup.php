@@ -17,7 +17,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->bind_param("ss", $email, $password);
 
     if ($stmt->execute()) {
-        echo "Signup successful!";
+        // Redirect to index.php with a success message
+        header("Location: index.php?signup=success");
+        exit();
     } else {
         echo "Error: " . $stmt->error;
     }
