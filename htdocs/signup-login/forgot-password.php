@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
 
         echo "Reset token generated!<br>";
-        echo "Copy this URL and paste it in your browser:<br>";
+        echo "Copy and paste this link into your browser:<br>";
         echo "<a href='reset-password.php?token=$token'>reset-password.php?token=$token</a>";
     } else {
         echo "No account found with that email.";
