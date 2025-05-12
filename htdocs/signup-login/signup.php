@@ -49,9 +49,31 @@ $conn->close();
 <form method="post">
     <h2>Sign Up</h2>
     <?php if ($error) echo "<p style='color:red;'>$error</p>"; ?>
+    
     Email: <input type="email" name="email" required><br><br>
-    Password: <input type="password" name="password" required><br><br>
-    Confirm Password: <input type="password" name="confirm_password" required><br><br>
-    <small>Password must be at least 8 characters and include uppercase, lowercase, number, and special character.</small><br><br>
+    
+    Password: <input type="password" id="password" name="password" required><br><br>
+    
+    Confirm Password: <input type="password" id="confirm_password" name="confirm_password" required><br><br>
+    
+    <!-- Toggle Password Visibility -->
+    <input type="checkbox" onclick="togglePassword()"> Show Password<br><br>
+    
     <button type="submit">Sign Up</button>
 </form>
+
+<script>
+    function togglePassword() {
+        var password = document.getElementById("password");
+        var confirmPassword = document.getElementById("confirm_password");
+        
+        // Toggle the password input field between password and text type
+        if (password.type === "password") {
+            password.type = "text";
+            confirmPassword.type = "text";
+        } else {
+            password.type = "password";
+            confirmPassword.type = "password";
+        }
+    }
+</script>
