@@ -44,9 +44,28 @@ $conn->close();
 ?>
 
 <form method="post">
-    <h2>Log In</h2>
+    <h2>Login</h2>
     <?php if ($error) echo "<p style='color:red;'>$error</p>"; ?>
+    
     Email: <input type="email" name="email" required><br><br>
-    Password (min 8 chars): <input type="password" name="password" required><br><br>
-    <button type="submit">Log In</button>
+    
+    Password: <input type="password" id="login_password" name="password" required><br><br>
+    
+    <!-- Toggle Password Visibility -->
+    <input type="checkbox" onclick="toggleLoginPassword()"> Show Password<br><br>
+    
+    <button type="submit">Login</button>
 </form>
+
+<script>
+    function toggleLoginPassword() {
+        var password = document.getElementById("login_password");
+        
+        // Toggle the password input field between password and text type
+        if (password.type === "password") {
+            password.type = "text";
+        } else {
+            password.type = "password";
+        }
+    }
+</script>
