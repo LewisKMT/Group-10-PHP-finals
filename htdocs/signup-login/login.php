@@ -57,15 +57,14 @@ $conn->close();
     <button type="submit">Login</button>
 </form>
 
+<!-- Forgot Password Button -->
+<form action="forgot-password.php" method="get">
+    <button type="submit">Forgot Password?</button>
+</form>
+
 <script>
     function toggleLoginPassword() {
         var password = document.getElementById("login_password");
-        
-        // Toggle the password input field between password and text type
-        if (password.type === "password") {
-            password.type = "text";
-        } else {
-            password.type = "password";
-        }
+        password.type = (password.type === "password") ? "text" : "password";
     }
 </script>
