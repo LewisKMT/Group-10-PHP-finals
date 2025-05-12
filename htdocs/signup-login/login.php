@@ -20,8 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = "Invalid email format.";
     }
     // Password validation
-    elseif (strlen($password) < 6) {
-        $error = "Password must be at least 6 characters.";
+    elseif (strlen($password) < 8) {
+        $error = "Password must be at least 8 characters.";
     }
     else {
         $stmt = $conn->prepare("SELECT password FROM users WHERE email = ?");
