@@ -19,7 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $stmt->bind_result($hashed_password);
     if ($stmt->fetch() && password_verify($password, $hashed_password)) {
-        echo "Login successful!";
+        // Redirect on successful login
+        header("Location: example-webpage.php");
+        exit();
     } else {
         echo "Invalid email or password.";
     }
