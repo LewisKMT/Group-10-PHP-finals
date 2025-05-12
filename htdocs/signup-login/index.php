@@ -4,12 +4,18 @@
     <title>Welcome</title>
 </head>
 <body>
-    <h2>Welcome</h2>
-    <form action="signup.php" method="get" style="display:inline;">
-        <button type="submit">Sign Up</button>
-    </form>
-    <form action="login.php" method="get" style="display:inline;">
-        <button type="submit">Log In</button>
-    </form>
+
+<?php
+// Show success message after signup
+if (isset($_GET['signup']) && $_GET['signup'] === 'success') {
+    echo "<p style='color: green;'>Account created successfully. You can now log in.</p>";
+}
+?>
+
+<h2>Welcome to the Home Page</h2>
+
+<a href="signup.php"><button>Sign Up</button></a>
+<a href="login.php"><button>Log In</button></a>
+
 </body>
 </html>
