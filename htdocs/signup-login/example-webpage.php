@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<h2>Welcome! You are logged in.</h2>
+<h2>Welcome to example Webpage! You are logged in.</h2>
 
 <!-- Log Out button -->
 <form action="index.php" method="get">
