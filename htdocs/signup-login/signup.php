@@ -14,6 +14,7 @@ $error = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST["email"]);
     $password = $_POST["password"];
+    $confirm_password = $_POST["confirm_password"];
 
     // Email validation
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -22,6 +23,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Strong password validation
     elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $password)) {
         $error = "Password must be at least 8 characters and include uppercase, lowercase, number, and special character.";
+    }
+    // Confirm password validation
+    elseif ($password !== $confirm_password) {
+        $error = "Passwords do not match.";
     }
     else {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
@@ -45,7 +50,8 @@ $conn->close();
     <h2>Sign Up</h2>
     <?php if ($error) echo "<p style='color:red;'>$error</p>"; ?>
     Email: <input type="email" name="email" required><br><br>
-    Password: <input type="password" name="password" required><br>
+    Password: <input type="password" name="password" required><br><br>
+    Confirm Password: <input type="password" name="confirm_password" required><br><br>
     <small>Password must be at least 8 characters and include uppercase, lowercase, number, and special character.</small><br><br>
     <button type="submit">Sign Up</button>
 </form>
