@@ -62,7 +62,6 @@ $conn->close();
     <button type="submit">Sign Up</button>
 </form>
 
-// Show password function
 <script>
     function togglePassword() {
         var password = document.getElementById("password");
