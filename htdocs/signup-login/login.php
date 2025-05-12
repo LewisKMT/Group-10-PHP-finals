@@ -47,6 +47,6 @@ $conn->close();
     <h2>Log In</h2>
     <?php if ($error) echo "<p style='color:red;'>$error</p>"; ?>
     Email: <input type="email" name="email" required><br><br>
-    Password (min 6 chars): <input type="password" name="password" required><br><br>
+    Password (min 8 chars): <input type="password" name="password" required><br><br>
     <button type="submit">Log In</button>
 </form>
