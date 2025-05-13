@@ -12,20 +12,18 @@ if ($conn->connect_error) {
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = trim($_POST["email"]);
+    $identifier = trim($_POST["identifier"]);  // Can be email or username
     $password = $_POST["password"];
 
-    // Email validation
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error = "Invalid email format.";
+    // Basic format check
+    if (empty($identifier) || empty($password)) {
+        $error = "Please fill in all fields.";
     }
-    // Password validation
     elseif (strlen($password) < 8) {
         $error = "Password must be at least 8 characters.";
-    }
-    else {
-        $stmt = $conn->prepare("SELECT password FROM users WHERE email = ?");
-        $stmt->bind_param("s", $email);
+    } else {
+        $stmt = $conn->prepare("SELECT password FROM users WHERE email = ? OR username = ?");
+        $stmt->bind_param("ss", $identifier, $identifier);
         $stmt->execute();
         $stmt->bind_result($hashed_password);
 
@@ -33,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: example-webpage.php");
             exit();
         } else {
-            $error = "Invalid email or password.";
+            $error = "Invalid username/email or password.";
         }
 
         $stmt->close();
@@ -46,14 +44,14 @@ $conn->close();
 <form method="post">
     <h2>Login</h2>
     <?php if ($error) echo "<p style='color:red;'>$error</p>"; ?>
-    
-    Email: <input type="email" name="email" required><br><br>
-    
+
+    Username or Email: <input type="text" name="identifier" required><br><br>
+
     Password: <input type="password" id="login_password" name="password" required><br><br>
-    
+
     <!-- Toggle Password Visibility -->
     <input type="checkbox" onclick="toggleLoginPassword()"> Show Password<br><br>
-    
+
     <button type="submit">Login</button>
 </form>
 
@@ -63,8 +61,8 @@ $conn->close();
 </form>
 
 <script>
-    function toggleLoginPassword() {
-        var password = document.getElementById("login_password");
-        password.type = (password.type === "password") ? "text" : "password";
-    }
+function toggleLoginPassword() {
+    var password = document.getElementById("login_password");
+    password.type = (password.type === "password") ? "text" : "password";
+}
 </script>
