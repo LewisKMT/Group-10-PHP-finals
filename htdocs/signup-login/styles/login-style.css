@@ -1,5 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
+:root {
+	--brown: #993300;
+	--grey: #333333;
+	--black: #000000;
+	--yellow: #ffcc66;
+	--white: #ffffff;
+	--blue: #006699;
+}
+
 * {
 	padding: 0;
 	margin: 0;
@@ -16,6 +25,7 @@ body {
 	display: flex;
 	flex-direction: row-reverse;
 	align-items: center;
+	background-color: var(--grey);
 }
 
 .alden {
@@ -26,7 +36,7 @@ body {
 .container {
 	height: 100%;
 	width: 40%;
-	background-color: lightblue;
+	background-color: var(--brown);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -36,7 +46,7 @@ body {
 .cell {
 	display: flex;
 	flex-direction: column;
-	background-color: aliceblue;
+	background-color: var(--yellow);
 	height: 70%;
 	width: 70%;
 	padding: 10%;
@@ -81,17 +91,18 @@ body {
 .login_button {
 	height: 3rem;
 	width: 100%;
-	background-color: lightblue;
+	background-color: var(--blue);
 	border: none;
 	border-radius: 25px;
 	margin-bottom: 12px;
+	color: var(--white);
 }
 
 .login_button:hover {
 	cursor: pointer;
 	height: 3rem;
 	width: 100%;
-	background-color: rgb(184, 231, 247);
+	background-color: #008799;
 	border: none;
 	border-radius: 25px;
 	margin-bottom: 12px;
@@ -101,7 +112,7 @@ body {
 	cursor: pointer;
 	height: 3rem;
 	width: 100%;
-	background-color: rgb(130, 207, 233);
+	background-color: #00adb3;
 	border: none;
 	border-radius: 25px;
 	margin-bottom: 12px;
@@ -123,4 +134,12 @@ body {
 	background-color: transparent;
 	text-decoration: underline;
 	cursor: pointer;
+}
+
+.forgot_pass_button:active {
+	border: none;
+	background-color: transparent;
+	text-decoration: underline;
+	cursor: pointer;
+	color: var(--white);
 }
