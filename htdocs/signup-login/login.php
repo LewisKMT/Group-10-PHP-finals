@@ -41,28 +41,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $conn->close();
 ?>
 
-<form method="post">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form method="post">
     <h2>Login</h2>
-    <?php if ($error) echo "<p style='color:red;'>$error</p>"; ?>
+      <?php if ($error) echo "<p style='color:red;'>$error</p>"; ?>
 
-    Username or Email: <input type="text" name="identifier" required><br><br>
+      Username or Email: <input type="text" name="identifier" required><br><br>
 
-    Password: <input type="password" id="login_password" name="password" required><br><br>
+      Password: <input type="password" id="login_password" name="password" required><br><br>
 
-    <!-- Toggle Password Visibility -->
-    <input type="checkbox" onclick="toggleLoginPassword()"> Show Password<br><br>
+      <!-- Toggle Password Visibility -->
+      <input type="checkbox" onclick="toggleLoginPassword()"> Show Password<br><br>
 
-    <button type="submit">Login</button>
-</form>
+      <button type="submit">Login</button>
+  </form>
 
-<!-- Forgot Password Button -->
-<form action="forgot-password.php" method="get">
-    <button type="submit">Forgot Password?</button>
-</form>
+  <!-- Forgot Password Button -->
+  <form action="forgot-password.php" method="get">
+      <button type="submit">Forgot Password?</button>
+  </form>
 
-<script>
-function toggleLoginPassword() {
-    var password = document.getElementById("login_password");
-    password.type = (password.type === "password") ? "text" : "password";
-}
-</script>
+  <script>
+  function toggleLoginPassword() {
+      var password = document.getElementById("login_password");
+      password.type = (password.type === "password") ? "text" : "password";
+  }
+  </script>
+</body>
+</html>
+
