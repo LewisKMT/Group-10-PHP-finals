@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 13, 2025 at 04:04 PM
+-- Generation Time: May 13, 2025 at 06:05 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,11 +29,11 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
+  `username` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   `reset_token` varchar(255) DEFAULT NULL,
-  `token_expiry` datetime DEFAULT NULL,
-  `username` varchar(255) NOT NULL
+  `token_expiry` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -45,7 +45,6 @@ CREATE TABLE `users` (
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`email`),
   ADD UNIQUE KEY `email` (`email`);
 
 --

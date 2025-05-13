@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+session_start();
+
 $host = 'localhost';
 $db = 'accounts';
 $user = 'root';
@@ -38,12 +40,40 @@ if ($_SESSION['login_attempts'] >= 3) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && $_SESSION['login_attempts'] < 3) {
     $identifier = trim($_POST["identifier"]);
+// Initialize lockout session variables
+if (!isset($_SESSION['login_attempts'])) {
+    $_SESSION['login_attempts'] = 0;
+}
+if (!isset($_SESSION['lockout_time'])) {
+    $_SESSION['lockout_time'] = null;
+}
+
+// Check if user is locked out
+if ($_SESSION['login_attempts'] >= 3) {
+    $lockout_duration = 60; // 1 minute in seconds
+    $time_since_lockout = time() - $_SESSION['lockout_time'];
+
+    if ($time_since_lockout < $lockout_duration) {
+        $remaining = $lockout_duration - $time_since_lockout;
+        $error = "Too many failed attempts. Try again in $remaining seconds.";
+    } else {
+        // Reset attempts after timeout
+        $_SESSION['login_attempts'] = 0;
+        $_SESSION['lockout_time'] = null;
+    }
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $_SESSION['login_attempts'] < 3) {
+    $identifier = trim($_POST["identifier"]);
     $password = $_POST["password"];
 
     // Validation
     if (strlen($password) < 8) {
+    // Validation
+    if (strlen($password) < 8) {
         $error = "Password must be at least 8 characters.";
     } else {
+        // Allow login via email or username
         // Allow login via email or username
         $stmt = $conn->prepare("SELECT password FROM users WHERE email = ? OR username = ?");
         $stmt->bind_param("ss", $identifier, $identifier);
@@ -53,9 +83,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_SESSION['login_attempts'] < 3) {
         if ($stmt->fetch() && password_verify($password, $hashed_password)) {
             $_SESSION['login_attempts'] = 0;
             $_SESSION['lockout_time'] = null;
+            $_SESSION['login_attempts'] = 0;
+            $_SESSION['lockout_time'] = null;
             header("Location: example-webpage.php");
             exit();
         } else {
+            $_SESSION['login_attempts'] += 1;
+            if ($_SESSION['login_attempts'] >= 3) {
+                $_SESSION['lockout_time'] = time();
+                $error = "Too many failed attempts. You are locked out for 1 minute.";
+            } else {
+                $remaining = 3 - $_SESSION['login_attempts'];
+                $error = "Invalid email/username or password. Attempts left: $remaining.";
+            }
+        }
             $_SESSION['login_attempts'] += 1;
             if ($_SESSION['login_attempts'] >= 3) {
                 $_SESSION['lockout_time'] = time();
