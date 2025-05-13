@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 13, 2025 at 02:44 PM
+-- Generation Time: May 13, 2025 at 04:04 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -37,13 +37,6 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `email`, `password`, `reset_token`, `token_expiry`, `username`) VALUES
-(1, 'lewistierra@gmail.com', '$2y$10$7ImiuQgKsK71dmqS7oIiluTirKca0YVdXsvbKX6uUJUgQERfmXPHG', NULL, NULL, 'lewis');
-
---
 -- Indexes for dumped tables
 --
 
@@ -63,7 +56,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
