@@ -21,7 +21,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-image: url('images/alden.jpg');
+        background-image: url('alden.jpg');
         background-repeat: no-repeat;
         background-attachment: fixed; 
         background-size: 100% 100%;
@@ -37,7 +37,7 @@
         align-items: center;
         flex-direction: column;
         text-align: center;
-        background-image: url('images/alden.jpg');
+        background-image: url('alden.jpg');
         background-repeat: no-repeat;
         padding: 2rem;
         color: white;
