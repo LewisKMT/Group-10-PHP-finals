@@ -6,6 +6,7 @@
 <body>
 
 <?php
+// Test
 // Show success message after signup
 if (isset($_GET['signup']) && $_GET['signup'] === 'success') {
     echo "<p style='color: green;'>Account created successfully. You can now log in.</p>";
