@@ -56,16 +56,16 @@ $conn->close();
     <?php if ($error) echo "<p style='color:red;'>$error</p>"; ?>
 
     Username: <input type="text" name="username" required><br><br>
-    
+
     Email: <input type="email" name="email" required><br><br>
-    
+
     Password: <input type="password" id="password" name="password" required><br><br>
-    
+
     Confirm Password: <input type="password" id="confirm_password" name="confirm_password" required><br><br>
-    
+
     <!-- Toggle Password Visibility -->
     <input type="checkbox" onclick="togglePassword()"> Show Password<br><br>
-    
+
     <button type="submit">Sign Up</button>
 </form>
 
@@ -74,6 +74,6 @@ function togglePassword() {
     var password = document.getElementById("password");
     var confirmPassword = document.getElementById("confirm_password");
     password.type = (password.type === "password") ? "text" : "password";
-    confirmPassword.type = password.type;
+    confirmPassword.type = (confirmPassword.type === "password") ? "text" : "password";
 }
 </script>
