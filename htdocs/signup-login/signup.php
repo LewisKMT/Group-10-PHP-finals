@@ -12,12 +12,17 @@ if ($conn->connect_error) {
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = trim($_POST["username"]);
     $email = trim($_POST["email"]);
     $password = $_POST["password"];
     $confirm_password = $_POST["confirm_password"];
 
+    // Username validation
+    if (empty($username)) {
+        $error = "Username is required.";
+    }
     // Email validation
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = "Invalid email format.";
     }
     // Strong password validation
@@ -30,8 +35,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     else {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $conn->prepare("INSERT INTO users (email, password) VALUES (?, ?)");
-        $stmt->bind_param("ss", $email, $hashed_password);
+        $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $username, $email, $hashed_password);
 
         if ($stmt->execute()) {
             header("Location: index.php?signup=success");
@@ -49,6 +54,8 @@ $conn->close();
 <form method="post">
     <h2>Sign Up</h2>
     <?php if ($error) echo "<p style='color:red;'>$error</p>"; ?>
+
+    Username: <input type="text" name="username" required><br><br>
     
     Email: <input type="email" name="email" required><br><br>
     
@@ -63,17 +70,10 @@ $conn->close();
 </form>
 
 <script>
-    function togglePassword() {
-        var password = document.getElementById("password");
-        var confirmPassword = document.getElementById("confirm_password");
-        
-        // Toggle the password input field between password and text type
-        if (password.type === "password") {
-            password.type = "text";
-            confirmPassword.type = "text";
-        } else {
-            password.type = "password";
-            confirmPassword.type = "password";
-        }
-    }
+function togglePassword() {
+    var password = document.getElementById("password");
+    var confirmPassword = document.getElementById("confirm_password");
+    password.type = (password.type === "password") ? "text" : "password";
+    confirmPassword.type = password.type;
+}
 </script>
