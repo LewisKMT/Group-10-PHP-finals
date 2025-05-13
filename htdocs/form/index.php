@@ -133,7 +133,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // If there are no validation errors, insert into database
   if (empty($idErr) && empty($snameErr) && empty($mnameErr) && empty($fnameErr)) {
     // Connect to database
-    $conn = new mysqli("localhost", "root", "", "group10form");
+    $conn = new mysqli("localhost", "root", "", "form");
 
     if ($conn->connect_error) {
       die("Connection failed: " . $conn->connect_error);
