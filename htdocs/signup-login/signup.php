@@ -17,13 +17,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
     $confirm_password = $_POST["confirm_password"];
 
-    // Username validation
-    if (empty($username)) {
-        $error = "Username is required.";
-    }
     // Email validation
-    elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = "Invalid email format.";
+    }
+    // Username validation
+    elseif (empty($username)) {
+        $error = "Username is required.";
     }
     // Strong password validation
     elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $password)) {
@@ -54,18 +54,25 @@ $conn->close();
 <form method="post">
     <h2>Sign Up</h2>
     <?php if ($error) echo "<p style='color:red;'>$error</p>"; ?>
-
+    
     Username: <input type="text" name="username" required><br><br>
-
+    
     Email: <input type="email" name="email" required><br><br>
-
-    Password: <input type="password" id="password" name="password" required><br><br>
-
+    
+    Password: <input type="password" id="password" name="password" required><br>
+    <small>Password must be at least 8 characters and include:</small><br>
+    <ul style="margin-top: 5px; margin-bottom: 10px;">
+        <li>At least one uppercase letter</li>
+        <li>At least one lowercase letter</li>
+        <li>At least one number</li>
+        <li>At least one special character</li>
+    </ul>
+    
     Confirm Password: <input type="password" id="confirm_password" name="confirm_password" required><br><br>
-
+    
     <!-- Toggle Password Visibility -->
     <input type="checkbox" onclick="togglePassword()"> Show Password<br><br>
-
+    
     <button type="submit">Sign Up</button>
 </form>
 
@@ -73,7 +80,7 @@ $conn->close();
 function togglePassword() {
     var password = document.getElementById("password");
     var confirmPassword = document.getElementById("confirm_password");
-    password.type = (password.type === "password") ? "text" : "password";
-    confirmPassword.type = (confirmPassword.type === "password") ? "text" : "password";
+    password.type = password.type === "password" ? "text" : "password";
+    confirmPassword.type = confirmPassword.type === "password" ? "text" : "password";
 }
 </script>

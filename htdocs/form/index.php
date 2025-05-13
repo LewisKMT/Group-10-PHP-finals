@@ -133,7 +133,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // If there are no validation errors, insert into database
   if (empty($idErr) && empty($snameErr) && empty($mnameErr) && empty($fnameErr)) {
     // Connect to database
-    $conn = new mysqli("localhost", "root", "", "group10form");
+    $conn = new mysqli("localhost", "root", "", "form");
 
     if ($conn->connect_error) {
       die("Connection failed: " . $conn->connect_error);
@@ -161,19 +161,19 @@ function test_input($data) {
 <h2>PHP Form Validation</h2>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
   <label>ID:</label>
-  <input type="text" name="id" value="<?php echo $id;?>">
+  <input type="text" name="id" placeholder="Please enter your ID" value="<?php echo $id;?>">
   <span class="error"><?php echo $idErr;?></span>
 
   <label>Surname:</label>
-  <input type="text" name="sname" value="<?php echo $sname;?>">
+  <input type="text" name="sname" placeholder="Please enter your surname" value="<?php echo $sname;?>">
   <span class="error"><?php echo $snameErr;?></span>
 
   <label>Middle Name:</label>
-  <input type="text" name="mname" value="<?php echo $mname;?>">
+  <input type="text" name="mname" placeholder="Please enter your middle name" value="<?php echo $mname;?>">
   <span class="error"><?php echo $mnameErr;?></span>
 
   <label>First Name:</label>
-  <input type="text" name="fname" value="<?php echo $fname;?>">
+  <input type="text" name="fname" placeholder="Please enter your first name" value="<?php echo $fname;?>">
   <span class="error"><?php echo $fnameErr;?></span>
 
   <input type="submit" name="submit" value="Submit">  
