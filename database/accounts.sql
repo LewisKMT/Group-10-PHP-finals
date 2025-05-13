@@ -33,7 +33,7 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `reset_token` varchar(255) DEFAULT NULL,
   `token_expiry` datetime DEFAULT NULL,
-  `username` varchar(255) DEFAULT NULL
+  `username` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
