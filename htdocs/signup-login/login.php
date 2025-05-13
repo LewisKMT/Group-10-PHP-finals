@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-session_start();
-
 $host = 'localhost';
 $db = 'accounts';
 $user = 'root';
@@ -40,6 +38,7 @@ if ($_SESSION['login_attempts'] >= 3) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && $_SESSION['login_attempts'] < 3) {
     $identifier = trim($_POST["identifier"]);
+}
 // Initialize lockout session variables
 if (!isset($_SESSION['login_attempts'])) {
     $_SESSION['login_attempts'] = 0;
