@@ -40,7 +40,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<form method="post">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reset Password</title>
+  <link rel="stylesheet" href="styles/resetPass-style.css">
+</head>
+<body>
+  <form method="post">
     <h2>Reset Password</h2>
     <?php if (!empty($error)) echo "<p style='color:red;'>$error</p>"; ?>
     <?php if (!empty($success)) echo "<p style='color:green;'>$success</p>"; ?>
@@ -53,16 +62,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     Confirm Password:<br>
     <input type="password" id="confirm_password" name="confirm_password" required><br><br>
 
-    <input type="checkbox" onclick="togglePassword()"> Show Passwords<br><br>
+    <div class="show_pass">
+      <input type="checkbox" onclick="toggleLoginPassword()" placeholder="*">
+      <p>Show Password</p>
+    </div>
 
     <button type="submit">Reset Password</button>
-</form>
+  </form>
 
-<script>
-    function togglePassword() {
-        var pw1 = document.getElementById("new_password");
-        var pw2 = document.getElementById("confirm_password");
-        pw1.type = pw1.type === "password" ? "text" : "password";
-        pw2.type = pw2.type === "password" ? "text" : "password";
-    }
-</script>
+  <script>
+      function togglePassword() {
+          var pw1 = document.getElementById("new_password");
+          var pw2 = document.getElementById("confirm_password");
+          pw1.type = pw1.type === "password" ? "text" : "password";
+          pw2.type = pw2.type === "password" ? "text" : "password";
+      }
+  </script>
+</body>
+</html>
+
