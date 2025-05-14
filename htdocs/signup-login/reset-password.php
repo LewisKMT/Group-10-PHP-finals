@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <input type="password" id="confirm_password" name="confirm_password" required><br><br>
 
     <div class="show_pass">
-      <input type="checkbox" onclick="toggleLoginPassword()" placeholder="*">
+      <input type="checkbox" onclick="togglePassword()" placeholder="*">
       <p>Show Password</p>
     </div>
 
