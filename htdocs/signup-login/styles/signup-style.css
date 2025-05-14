@@ -28,10 +28,6 @@ body {
 	background-color: var(--grey);
 }
 
-.placeholder {
-	flex-shrink: 2;
-}
-
 .container {
 	height: 100%;
 	background-color: var(--brown);
