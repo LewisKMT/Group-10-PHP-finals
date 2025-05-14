@@ -28,11 +28,6 @@ body {
 	background-color: var(--grey);
 }
 
-.alden {
-	height: 760px;
-	margin-right: 8rem;
-}
-
 .placeholder {
 	flex-shrink: 2;
 }
