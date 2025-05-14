@@ -33,6 +33,8 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      max-width: 100vw;
+      max-height: 100vh;
     }
 
     .right-section {
