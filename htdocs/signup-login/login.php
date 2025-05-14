@@ -68,11 +68,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_SESSION['login_attempts'] < 3) {
 
     // Validation
     if (strlen($password) < 8) {
-    // Validation
-    if (strlen($password) < 8) {
         $error = "Password must be at least 8 characters.";
     } else {
-        // Allow login via email or username
         // Allow login via email or username
         $stmt = $conn->prepare("SELECT password FROM users WHERE email = ? OR username = ?");
         $stmt->bind_param("ss", $identifier, $identifier);
@@ -80,8 +77,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_SESSION['login_attempts'] < 3) {
         $stmt->bind_result($hashed_password);
 
         if ($stmt->fetch() && password_verify($password, $hashed_password)) {
-            $_SESSION['login_attempts'] = 0;
-            $_SESSION['lockout_time'] = null;
             $_SESSION['login_attempts'] = 0;
             $_SESSION['lockout_time'] = null;
             header("Location: example-webpage.php");
@@ -106,8 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_SESSION['login_attempts'] < 3) {
             }
         }
         $stmt->close();
-    }
-}
+  }
 
 $conn->close();
 ?>
