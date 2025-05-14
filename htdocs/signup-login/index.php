@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <title>Compass</title>
   <style>
     * {
@@ -17,7 +17,7 @@
       display: flex;
       min-height: 100vh;
       flex-direction: row;
-      overflow: hidden;
+      overflow: auto;
     }
 
     .image-section {
@@ -26,7 +26,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: auto;
+      overflow: hidden;
     }
 
     .image-section img {
@@ -43,13 +43,15 @@
       align-items: center;
       padding: 1rem;
       position: relative;
+      padding-top: 0;
     }
 
     .logo {
       width: 100%;
       max-width: 700px;
       text-align: center;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
+      margin: 0;
     }
 
     .logo img {
@@ -61,14 +63,16 @@
     .welcome-box-wrapper {
       display: flex;
       justify-content: center;
-      align-items: center;
-      height: calc(30% - 30px);
+      align-items: flex-start;
+      padding-top: 0.5rem;
+      height: auto;
+      flex-grow: 1;
       width: 100%;
     }
 
     .welcome-box {
       background-color: #000;
-      padding: 1.5rem;
+      padding: 2rem;
       border-radius: 15px;
       width: 100%;
       max-width: 450px;
