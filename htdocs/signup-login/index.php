@@ -27,6 +27,7 @@
       justify-content: center;
       align-items: center;
       overflow: hidden;
+      height: 100vh;
     }
 
     .image-section img {
@@ -51,6 +52,7 @@
     .logo {
       width: 100%;
       max-width: 700px;
+      height: 400px;
       text-align: center;
       margin-bottom: 0.5rem;
       margin: 0;
@@ -78,7 +80,7 @@
       border-radius: 15px;
       width: 100%;
       max-width: 450px;
-      height: 400px;
+      max-height: 400px;
       text-align: center;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
       display: flex;
