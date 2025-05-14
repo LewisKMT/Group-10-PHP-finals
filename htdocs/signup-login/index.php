@@ -172,12 +172,12 @@
 <body>
 
   <div class="image-section">
-     <img src="sidecompass.jpg" alt="Side Image">
+     <img src="images/sidecompass.jpg" alt="Side Image">
   </div>
 
   <div class="right-section">
     <div class="logo">
-      <img src="logo.png" alt="Logo">
+      <img src="images/logo.png" alt="Logo">
     </div>
 
     <div class="welcome-box-wrapper">
