@@ -2,6 +2,7 @@
 date_default_timezone_set('Asia/Manila');
 
 $conn = new mysqli('localhost', 'root', '', 'accounts');
+$message = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
@@ -20,14 +21,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("sss", $token, $expiry, $email);
         $stmt->execute();
 
-        echo "Reset token generated!<br>";
-        echo "Copy and paste this link into your browser:<br>";
-        echo "<a href='reset-password.php?token=$token'>reset-password.php?token=$token</a>";
+        $message = "Reset token generated!<br>Copy and paste this link into your browser:<br>
+                    <a href='reset-password.php?token=$token'>reset-password.php?token=$token</a>";
     } else {
-        echo "No account found with that email.";
+        $message = "No account found with that email.";
     }
-
-    $stmt->close();
 }
 ?>
 
@@ -41,6 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
   <form method="post">
+    <?php if (!empty($message)) echo $message; ?>
     <h2>Forgot Password</h2>
     Enter your email:<br>
     <input type="email" name="email" required><br><br>
