@@ -149,7 +149,7 @@ $conn->close();
       </div>
     </div>
     <div>
-      <img class="alden" src="alden.jpg" alt="">
+      <img class="alden" src="images/alden.jpg" alt="">
     </div>
 
     <script>
