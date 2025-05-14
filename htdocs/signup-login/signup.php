@@ -16,27 +16,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST["email"]);
     $password = $_POST["password"];
     $confirm_password = $_POST["confirm_password"];
+    $first_name = trim($_POST["first_name"]);
+    $last_name = trim($_POST["last_name"]);
+    $bio = trim($_POST["bio"]);
 
-    // Email validation
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    // Required field validation
+    if (empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
+        $error = "Please fill in all required fields.";
+    }
+    elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = "Invalid email format.";
     }
-    // Username validation
-    elseif (empty($username)) {
-        $error = "Username is required.";
-    }
-    // Strong password validation
     elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $password)) {
         $error = "Password must be at least 8 characters and include uppercase, lowercase, number, and special character.";
     }
-    // Confirm password validation
     elseif ($password !== $confirm_password) {
         $error = "Passwords do not match.";
     }
     else {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $username, $email, $hashed_password);
+        $stmt = $conn->prepare("INSERT INTO users (username, email, password, first_name, last_name, bio) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("ssssss", $username, $email, $hashed_password, $first_name, $last_name, $bio);
 
         if ($stmt->execute()) {
             header("Location: index.php?signup=success");
@@ -54,33 +54,40 @@ $conn->close();
 <form method="post">
     <h2>Sign Up</h2>
     <?php if ($error) echo "<p style='color:red;'>$error</p>"; ?>
-    
-    Username: <input type="text" name="username" required><br><br>
-    
-    Email: <input type="email" name="email" required><br><br>
-    
-    Password: <input type="password" id="password" name="password" required><br>
-    <small>Password must be at least 8 characters and include:</small><br>
-    <ul style="margin-top: 5px; margin-bottom: 10px;">
-        <li>At least one uppercase letter</li>
-        <li>At least one lowercase letter</li>
-        <li>At least one number</li>
-        <li>At least one special character</li>
-    </ul>
-    
-    Confirm Password: <input type="password" id="confirm_password" name="confirm_password" required><br><br>
-    
-    <!-- Toggle Password Visibility -->
+
+    <label>Username *:</label><br>
+    <input type="text" name="username" required><br><br>
+
+    <label>Email *:</label><br>
+    <input type="email" name="email" required><br><br>
+
+    <label>Password *:</label><br>
+    <input type="password" id="password" name="password" required><br>
+    <small>Password must be at least 8 characters and include uppercase, lowercase, number, and special character.</small><br><br>
+
+    <label>Confirm Password *:</label><br>
+    <input type="password" id="confirm_password" name="confirm_password" required><br><br>
+
     <input type="checkbox" onclick="togglePassword()"> Show Password<br><br>
-    
+
+    <!-- Optional Fields -->
+    <label>First Name (optional):</label><br>
+    <input type="text" name="first_name"><br><br>
+
+    <label>Last Name (optional):</label><br>
+    <input type="text" name="last_name"><br><br>
+
+    <label>Bio (optional):</label><br>
+    <textarea name="bio" rows="3" cols="30"></textarea><br><br>
+
     <button type="submit">Sign Up</button>
 </form>
 
 <script>
 function togglePassword() {
-    var password = document.getElementById("password");
-    var confirmPassword = document.getElementById("confirm_password");
-    password.type = password.type === "password" ? "text" : "password";
-    confirmPassword.type = confirmPassword.type === "password" ? "text" : "password";
+    var pass = document.getElementById("password");
+    var confirm = document.getElementById("confirm_password");
+    pass.type = (pass.type === "password") ? "text" : "password";
+    confirm.type = (confirm.type === "password") ? "text" : "password";
 }
 </script>
