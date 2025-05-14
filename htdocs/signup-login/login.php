@@ -124,7 +124,7 @@ $conn->close();
     <div class="container">
       <div class="cell">
         <form method="post">
-          <h1>Login</h1>
+          <h1>Login</h1><br><br>
           <?php if ($error) echo "<p style='color:red;'>$error</p>"; ?>
 
           Username or Email:<br>
@@ -151,6 +151,7 @@ $conn->close();
     <div>
       <img class="alden" src="images/alden.jpg" alt="">
     </div>
+    <div class="placeholder"></div>
 
     <script>
       function toggleLoginPassword() {

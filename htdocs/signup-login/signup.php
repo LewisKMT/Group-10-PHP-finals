@@ -60,37 +60,48 @@ $conn->close();
     <link rel="stylesheet" href="styles/signup-style.css">
   </head>
   <body>
-    <form method="post">
-      <h1>Sign Up</h1>
-      <?php if ($error) echo "<p style='color:red;'>$error</p>"; ?>
+    
+    <div class="container">
+      <div class="cell">
+        <form method="post">
+          <h1>Sign Up</h1>
+          <small class="notice">Fields with <span style="color: red;">*</span> requires input.</small><br><br>
+          <?php if ($error) echo "<p style='color:red;'>$error</p>"; ?>
 
-      <label>Username *:</label><br>
-      <input type="text" name="username" required><br><br>
+          <label>Username <span style="color: red;">*</span>:</label><br>
+          <input type="text" name="username" required><br><br>
 
-      <label>Email *:</label><br>
-      <input type="email" name="email" required><br><br>
+          <label>Email <span style="color: red;">*</span>:</label><br>
+          <input type="email" name="email" required><br><br>
 
-      <label>Password *:</label><br>
-      <input type="password" id="password" name="password" required><br>
-      <small>Password must be at least 8 characters and include uppercase, lowercase, number, and special character.</small><br><br>
+          <label>Password <span style="color: red;">*</span>:</label><br>
+          <input type="password" id="password" name="password" required><br>
+          <small>Password must be at least 8 characters and include uppercase, lowercase, number, and special character.</small><br><br>
 
-      <label>Confirm Password *:</label><br>
-      <input type="password" id="confirm_password" name="confirm_password" required><br><br>
+          <label>Confirm Password <span style="color: red;">*</span>:</label><br>
+          <input type="password" id="confirm_password" name="confirm_password" required><br><br>
 
-      <input type="checkbox" onclick="togglePassword()"> Show Password<br><br>
+          <div class="show_pass">
+            <input type="checkbox" onclick="toggleLoginPassword()" placeholder="*">
+            <p>Show Password</p>
+          </div>
 
-      <!-- Optional Fields -->
-      <label>First Name (optional):</label><br>
-      <input type="text" name="first_name"><br><br>
+          <!-- Optional Fields -->
+          <label>First Name (optional):</label><br>
+          <input type="text" name="first_name"><br><br>
 
-      <label>Last Name (optional):</label><br>
-      <input type="text" name="last_name"><br><br>
+          <label>Last Name (optional):</label><br>
+          <input type="text" name="last_name"><br><br>
 
-      <label>Bio (optional):</label><br>
-      <textarea name="bio" rows="3" cols="30"></textarea><br><br>
+          <label>Bio (optional):</label><br>
+          <textarea name="bio" rows="3" cols="30"></textarea><br><br>
 
-      <button type="submit">Sign Up</button>
-    </form>
+          <button class="signup_button" type="submit">Sign Up</button>
+        </form>
+      </div>
+      <div class="placeholder"></div>
+    </div>
+    
 
     <script>
     function togglePassword() {
