@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 
 $error = "";
 
-// Track login attempts using session
+// Set up session tracking if not already set
 if (!isset($_SESSION['login_attempts'])) {
     $_SESSION['login_attempts'] = 0;
 }
@@ -21,43 +21,56 @@ if (!isset($_SESSION['lockout_time'])) {
     $_SESSION['lockout_time'] = null;
 }
 
+$lockout_duration = 60; // seconds
+$max_attempts = 3;
+
+// Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if ($_SESSION['login_attempts'] >= 3 && time() < $_SESSION['lockout_time']) {
-        $error = "Too many failed attempts. Try again later.";
-    } else {
-        $input = trim($_POST["email"]);  // Can be email or username
-        $password = $_POST["password"];
+    $input = trim($_POST["email"]); // can be email or username
+    $password = $_POST["password"];
 
-        if (empty($input) || empty($password)) {
-            $error = "All fields are required.";
+    // Check if user is locked out
+    if ($_SESSION['login_attempts'] >= $max_attempts) {
+        $elapsed = time() - $_SESSION['lockout_time'];
+        if ($elapsed < $lockout_duration) {
+            $remaining = $lockout_duration - $elapsed;
+            $error = "Too many failed attempts. Please try again after $remaining seconds.";
         } else {
-            // Check if input is email or username
-            if (filter_var($input, FILTER_VALIDATE_EMAIL)) {
-                $stmt = $conn->prepare("SELECT password FROM users WHERE email = ?");
-            } else {
-                $stmt = $conn->prepare("SELECT password FROM users WHERE username = ?");
-            }
+            // Lockout expired — reset
+            $_SESSION['login_attempts'] = 0;
+            $_SESSION['lockout_time'] = null;
+        }
+    }
 
-            $stmt->bind_param("s", $input);
+    // Proceed only if not locked out
+    if ($_SESSION['login_attempts'] < $max_attempts && !$error) {
+        if (!filter_var($input, FILTER_VALIDATE_EMAIL) && !preg_match('/^\w{3,}$/', $input)) {
+            $error = "Enter a valid email or username.";
+        } elseif (strlen($password) < 8) {
+            $error = "Password must be at least 8 characters.";
+        } else {
+            $stmt = $conn->prepare("SELECT password FROM users WHERE email = ? OR username = ?");
+            $stmt->bind_param("ss", $input, $input);
             $stmt->execute();
             $stmt->bind_result($hashed_password);
 
             if ($stmt->fetch() && password_verify($password, $hashed_password)) {
-                // Reset attempts and redirect
+                // Login success
                 $_SESSION['login_attempts'] = 0;
                 $_SESSION['lockout_time'] = null;
+                $stmt->close();
                 header("Location: example-webpage.php");
                 exit();
             } else {
                 $_SESSION['login_attempts']++;
-                if ($_SESSION['login_attempts'] >= 3) {
-                    $_SESSION['lockout_time'] = time() + 60; // 1 minute lockout
-                    $error = "Too many failed attempts. Try again in 1 minute.";
+                if ($_SESSION['login_attempts'] >= $max_attempts) {
+                    $_SESSION['lockout_time'] = time();
+                    $error = "Too many failed attempts. Please wait $lockout_duration seconds.";
                 } else {
-                    $error = "Invalid login credentials.";
+                    $remaining_attempts = $max_attempts - $_SESSION['login_attempts'];
+                    $error = "Invalid credentials. You have $remaining_attempts attempt(s) left.";
                 }
             }
-
             $stmt->close();
         }
     }
@@ -82,7 +95,7 @@ $conn->close();
           <?php if ($error) echo "<p style='color:red;'>$error</p>"; ?>
 
           Username or Email:<br>
-          <input type="text" name="identifier" required><br><br>
+          <input type="text" name="email" required><br><br>
 
           Password:<br>
           <input type="password" id="login_password" name="password" required><br><br>
@@ -102,7 +115,8 @@ $conn->close();
         </form>
       </div>
     </div>
-    <div class="placeholder"></div>
+    <div class="placeholder">
+</div>
 
     <script>
       function toggleLoginPassword() {
