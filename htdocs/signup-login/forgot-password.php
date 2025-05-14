@@ -31,9 +31,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<form method="post">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forgot Password</title>
+  <link rel="stylesheet" href="styles/forgotPass-style.css">
+</head>
+<body>
+  <form method="post">
     <h2>Forgot Password</h2>
     Enter your email:<br>
     <input type="email" name="email" required><br><br>
     <button type="submit">Generate Reset Link</button>
-</form>
+  </form>
+</body>
+</html>
+
+
