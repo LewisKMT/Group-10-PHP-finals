@@ -51,43 +51,54 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $conn->close();
 ?>
 
-<form method="post">
-    <h2>Sign Up</h2>
-    <?php if ($error) echo "<p style='color:red;'>$error</p>"; ?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="styles/signup-style.css">
+  </head>
+  <body>
+    <form method="post">
+      <h1>Sign Up</h1>
+      <?php if ($error) echo "<p style='color:red;'>$error</p>"; ?>
 
-    <label>Username *:</label><br>
-    <input type="text" name="username" required><br><br>
+      <label>Username *:</label><br>
+      <input type="text" name="username" required><br><br>
 
-    <label>Email *:</label><br>
-    <input type="email" name="email" required><br><br>
+      <label>Email *:</label><br>
+      <input type="email" name="email" required><br><br>
 
-    <label>Password *:</label><br>
-    <input type="password" id="password" name="password" required><br>
-    <small>Password must be at least 8 characters and include uppercase, lowercase, number, and special character.</small><br><br>
+      <label>Password *:</label><br>
+      <input type="password" id="password" name="password" required><br>
+      <small>Password must be at least 8 characters and include uppercase, lowercase, number, and special character.</small><br><br>
 
-    <label>Confirm Password *:</label><br>
-    <input type="password" id="confirm_password" name="confirm_password" required><br><br>
+      <label>Confirm Password *:</label><br>
+      <input type="password" id="confirm_password" name="confirm_password" required><br><br>
 
-    <input type="checkbox" onclick="togglePassword()"> Show Password<br><br>
+      <input type="checkbox" onclick="togglePassword()"> Show Password<br><br>
 
-    <!-- Optional Fields -->
-    <label>First Name (optional):</label><br>
-    <input type="text" name="first_name"><br><br>
+      <!-- Optional Fields -->
+      <label>First Name (optional):</label><br>
+      <input type="text" name="first_name"><br><br>
 
-    <label>Last Name (optional):</label><br>
-    <input type="text" name="last_name"><br><br>
+      <label>Last Name (optional):</label><br>
+      <input type="text" name="last_name"><br><br>
 
-    <label>Bio (optional):</label><br>
-    <textarea name="bio" rows="3" cols="30"></textarea><br><br>
+      <label>Bio (optional):</label><br>
+      <textarea name="bio" rows="3" cols="30"></textarea><br><br>
 
-    <button type="submit">Sign Up</button>
-</form>
+      <button type="submit">Sign Up</button>
+    </form>
 
-<script>
-function togglePassword() {
-    var pass = document.getElementById("password");
-    var confirm = document.getElementById("confirm_password");
-    pass.type = (pass.type === "password") ? "text" : "password";
-    confirm.type = (confirm.type === "password") ? "text" : "password";
-}
-</script>
+    <script>
+    function togglePassword() {
+        var pass = document.getElementById("password");
+        var confirm = document.getElementById("confirm_password");
+        pass.type = (pass.type === "password") ? "text" : "password";
+        confirm.type = (confirm.type === "password") ? "text" : "password";
+    }
+    </script>
+  </body>
+</html>
