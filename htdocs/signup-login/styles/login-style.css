@@ -39,6 +39,7 @@ body {
 
 .container {
 	height: 100%;
+	width: 60%;
 	background-color: var(--brown);
 	display: flex;
 	flex-direction: column;

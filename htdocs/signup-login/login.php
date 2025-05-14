@@ -148,10 +148,9 @@ $conn->close();
         </form>
       </div>
     </div>
-    <div>
+    <div class="placeholder">
       <img class="alden" src="images/alden.jpg" alt="">
     </div>
-    <div class="placeholder"></div>
 
     <script>
       function toggleLoginPassword() {
