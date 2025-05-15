@@ -71,7 +71,7 @@ $conn->close();
 						>Fields with <span style="color: red">*</span> requires
 						input.</small
 					><br /><br />
-					<!-- <?php if ($error) echo "<p style='color:red;'>$error</p>"; ?> -->
+					<?php if ($error) echo "<p style='color:red;'>$error</p>"; ?>
 
 					<label>Username <span style="color: red">*</span>:</label><br />
 					<input type="text" name="username" required /><br /><br />
