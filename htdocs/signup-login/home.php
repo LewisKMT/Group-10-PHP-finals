@@ -25,18 +25,54 @@
     background-color: #333333;
   }
 
-  .logo {
-    width: 500px;
-    height: 500px;
+  header {
+        background-color: aliceblue;
+        width: 100%;
+        height: 4rem;
+        position: fixed;
+        top: 0;
+        display: flex;
+        align-items: center;
+        padding: 0 1em;
+        z-index: 100;
+      }
+  
+  nav {
+    margin-left: auto;
+    display: flex;
+    height: 100%;
+    align-content: center;
   }
 
-  .logo img {
+  nav a {
+    padding-inline: 1rem;
+    align-content: center;
+    font-weight: 400;
+    font-size: 1.5rem;
     height: 100%;
-    width: 100%;
+  }
+
+  nav a:hover {
+    background-color: #00adb5;
+    transition: ease-in 0.1s;
+  }
+
+  nav a:active {
+    background-color: #0098a0;
+    transition: ease-in 0.1s;
   }
   </style>
 </head>
 <body>
+  <header>
+    <h2 style="text-transform: uppercase;">COMPASS</h2>
+      <nav>
+        <a>Home</a>
+        <a>Intro</a>
+        <a>LOG IN</a>
+        <a>SIGN UP</a>
+      </nav>
+  </header>
   <div class="logo">
     <img src="images/logo.png" alt="">
   </div>
