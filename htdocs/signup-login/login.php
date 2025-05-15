@@ -81,49 +81,66 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styles/login-style.css">
-  </head>
-  <body>
-    <div class="container">
-      <div class="cell">
-        <form method="post">
-          <h1>Login</h1><br><br>
-          <?php if ($error) echo "<p style='color:red;'>$error</p>"; ?>
-
-          Username or Email:<br>
-          <input type="text" name="email" required><br><br>
-
-          Password:<br>
-          <input type="password" id="login_password" name="password" required><br><br>
-
-          <!-- Toggle Password Visibility -->
-          <div class="show_pass">
-            <input type="checkbox" onclick="toggleLoginPassword()" placeholder="*">
-            <p>Show Password</p>
-          </div>
-
-          <button class="login_button" type="submit">Login</button>
-        </form>
-
-        <!-- Forgot Password Button -->
-        <form class="forgot_pass" action="forgot-password.php" method="get">
-          <button class="forgot_pass_button" type="submit">Forgot Password?</button>
-        </form>
-      </div>
-    </div>
-    <div class="placeholder">
-</div>
-
-    <script>
-      function toggleLoginPassword() {
-        var password = document.getElementById("login_password");
-        password.type = (password.type === "password") ? "text" : "password";
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link rel="stylesheet" href="styles/login-style.css" />
+    <style>
+      body {
+        background-image: url(images/login_bg.jpg);
       }
-    </script>
-    
-  </body>
+    </style>
+	</head>
+	<body>
+		<div class="logo">
+			<img src="images/logo.png" alt="" />
+		</div>
+		<div class="container">
+			<div class="cell">
+				<form method="post">
+					<h1>Login</h1>
+					<br /><br />
+					<?php if ($error) echo "<p style='color:red;'>$error</p>"; ?>
+
+					Username or Email:<br />
+					<input type="text" name="email" required /><br /><br />
+
+					Password:<br />
+					<input
+						type="password"
+						id="login_password"
+						name="password"
+						required
+					/><br /><br />
+
+					<!-- Toggle Password Visibility -->
+					<div class="show_pass">
+						<input
+							type="checkbox"
+							onclick="toggleLoginPassword()"
+							placeholder="*"
+						/>
+						<p>Show Password</p>
+					</div>
+
+					<button class="login_button" type="submit">Login</button>
+				</form>
+
+				<!-- Forgot Password Button -->
+				<form class="forgot_pass" action="forgot-password.php" method="get">
+					<button class="forgot_pass_button" type="submit">
+						Forgot Password?
+					</button>
+				</form>
+			</div>
+		</div>
+
+		<script>
+			function toggleLoginPassword() {
+				var password = document.getElementById("login_password");
+				password.type = password.type === "password" ? "text" : "password";
+			}
+		</script>
+	</body>
 </html>
