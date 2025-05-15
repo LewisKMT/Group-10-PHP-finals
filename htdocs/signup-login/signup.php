@@ -53,63 +53,82 @@ $conn->close();
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="styles/signup-style.css">
-  </head>
-  <body>
-    
-    <div class="container">
-      <div class="cell">
-        <form method="post">
-          <h1>Sign Up</h1>
-          <small class="notice">Fields with <span style="color: red;">*</span> requires input.</small><br><br>
-          <?php if ($error) echo "<p style='color:red;'>$error</p>"; ?>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Sign Up</title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div class="logo">
+			<img src="images/logo.png" alt="" />
+		</div>
+		<div class="container">
+			<div class="cell">
+				<form method="post">
+					<h1>Sign Up</h1>
+					<small class="notice"
+						>Fields with <span style="color: red">*</span> requires
+						input.</small
+					><br /><br />
+					<!-- <?php if ($error) echo "<p style='color:red;'>$error</p>"; ?> -->
 
-          <label>Username <span style="color: red;">*</span>:</label><br>
-          <input type="text" name="username" required><br><br>
+					<label>Username <span style="color: red">*</span>:</label><br />
+					<input type="text" name="username" required /><br /><br />
 
-          <label>Email <span style="color: red;">*</span>:</label><br>
-          <input type="email" name="email" required><br><br>
+					<label>Email <span style="color: red">*</span>:</label><br />
+					<input type="email" name="email" required /><br /><br />
 
-          <label>Password <span style="color: red;">*</span>:</label><br>
-          <input type="password" id="password" name="password" required><br>
-          <small>Password must be at least 8 characters and include uppercase, lowercase, number, and special character.</small><br><br>
+					<label>Password <span style="color: red">*</span>:</label><br />
+					<input type="password" id="password" name="password" required /><br />
+					<small>
+						Password must be at least 8 characters and include uppercase,
+						lowercase, number, and special character. </small
+					><br /><br />
 
-          <label>Confirm Password <span style="color: red;">*</span>:</label><br>
-          <input type="password" id="confirm_password" name="confirm_password" required><br><br>
+					<label>Confirm Password <span style="color: red">*</span>:</label
+					><br />
+					<input
+						type="password"
+						id="confirm_password"
+						name="confirm_password"
+						required
+					/><br /><br />
 
-          <div class="show_pass">
-            <input type="checkbox" onclick="togglePassword()" placeholder="*">
-            <p>Show Password</p>
-          </div>
+					<div class="show_pass">
+						<input type="checkbox" onclick="togglePassword()" placeholder="*" />
+						<p>Show Password</p>
+					</div>
 
-          <!-- Optional Fields -->
-          <label>First Name (optional):</label><br>
-          <input type="text" name="first_name"><br><br>
+					<h3>Optional Fields</h3>
+					<br />
+					<label>First Name:</label><br />
+					<input type="text" name="first_name" /><br /><br />
 
-          <label>Last Name (optional):</label><br>
-          <input type="text" name="last_name"><br><br>
+					<label>Last Name:</label><br />
+					<input type="text" name="last_name" /><br /><br />
 
-          <label>Bio (optional):</label><br>
-          <textarea name="bio" rows="3" cols="30"></textarea><br><br>
+					<label>Bio:</label><br />
+					<textarea name="bio" rows="3" cols="30"></textarea><br /><br />
 
-          <button class="signup_button" type="submit">Sign Up</button>
-        </form>
-      </div>
-      <div class="placeholder"></div>
-    </div>
-    
+					<div class="tnc">
+						<input type="checkbox" required />
+						<p>Agree to</p>
+						<a href="TnC.php"> Terms and Conditions</a>
+					</div>
+					<button class="signup_button" type="submit">Sign Up</button>
+				</form>
+			</div>
+			<div class="placeholder"></div>
+		</div>
 
-    <script>
-    function togglePassword() {
-        var pass = document.getElementById("password");
-        var confirm = document.getElementById("confirm_password");
-        pass.type = (pass.type === "password") ? "text" : "password";
-        confirm.type = (confirm.type === "password") ? "text" : "password";
-    }
-    </script>
-  </body>
+		<script>
+			function togglePassword() {
+				var pass = document.getElementById("password");
+				var confirm = document.getElementById("confirm_password");
+				pass.type = pass.type === "password" ? "text" : "password";
+				confirm.type = confirm.type === "password" ? "text" : "password";
+			}
+		</script>
+	</body>
 </html>
