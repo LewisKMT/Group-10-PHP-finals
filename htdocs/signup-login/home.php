@@ -68,9 +68,8 @@
     <h2 style="text-transform: uppercase;">COMPASS</h2>
       <nav>
         <a>Home</a>
-        <a>Intro</a>
-        <a>LOG IN</a>
-        <a>SIGN UP</a>
+        <a>Services</a>
+        <a href="index.php">Log Out</a>
       </nav>
   </header>
   <div class="logo">
