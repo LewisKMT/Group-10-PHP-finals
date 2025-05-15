@@ -114,7 +114,7 @@ $conn->close();
 					<div class="tnc">
 						<input type="checkbox" required />
 						<p>Agree to</p>
-						<a href="TnC.php"> Terms and Conditions</a>
+						<a href="TnC.php"> Terms and Conditions</a><span style="color: red;">*</span>
 					</div>
 					<button class="signup_button" type="submit">Sign Up</button>
 				</form>
