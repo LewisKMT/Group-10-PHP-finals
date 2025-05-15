@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 
 $error = "";
 
-// Set up session tracking if not already set
+// Session-based lockout
 if (!isset($_SESSION['login_attempts'])) {
     $_SESSION['login_attempts'] = 0;
 }
@@ -24,53 +24,54 @@ if (!isset($_SESSION['lockout_time'])) {
 $lockout_duration = 60; // seconds
 $max_attempts = 3;
 
-// Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $input = trim($_POST["email"]); // can be email or username
+    $input = trim($_POST["email"]); // Can be username or email
     $password = $_POST["password"];
 
-    // Check if user is locked out
+    // Lockout logic
     if ($_SESSION['login_attempts'] >= $max_attempts) {
         $elapsed = time() - $_SESSION['lockout_time'];
         if ($elapsed < $lockout_duration) {
             $remaining = $lockout_duration - $elapsed;
-            $error = "Too many failed attempts. Please try again after $remaining seconds.";
+            $error = "Too many failed attempts. Try again after $remaining seconds.";
         } else {
-            // Lockout expired — reset
             $_SESSION['login_attempts'] = 0;
             $_SESSION['lockout_time'] = null;
         }
     }
 
-    // Proceed only if not locked out
     if ($_SESSION['login_attempts'] < $max_attempts && !$error) {
         if (!filter_var($input, FILTER_VALIDATE_EMAIL) && !preg_match('/^\w{3,}$/', $input)) {
             $error = "Enter a valid email or username.";
         } elseif (strlen($password) < 8) {
             $error = "Password must be at least 8 characters.";
         } else {
-            $stmt = $conn->prepare("SELECT password FROM users WHERE email = ? OR username = ?");
+            $stmt = $conn->prepare("SELECT email, password FROM users WHERE email = ? OR username = ?");
             $stmt->bind_param("ss", $input, $input);
             $stmt->execute();
-            $stmt->bind_result($hashed_password);
+            $result = $stmt->get_result();
 
-            if ($stmt->fetch() && password_verify($password, $hashed_password)) {
-                // Login success
-                $_SESSION['login_attempts'] = 0;
-                $_SESSION['lockout_time'] = null;
-                $stmt->close();
-                header("Location: example-webpage.php");
-                exit();
-            } else {
-                $_SESSION['login_attempts']++;
-                if ($_SESSION['login_attempts'] >= $max_attempts) {
-                    $_SESSION['lockout_time'] = time();
-                    $error = "Too many failed attempts. Please wait $lockout_duration seconds.";
-                } else {
-                    $remaining_attempts = $max_attempts - $_SESSION['login_attempts'];
-                    $error = "Invalid credentials. You have $remaining_attempts attempt(s) left.";
+            if ($user = $result->fetch_assoc()) {
+                if (password_verify($password, $user['password'])) {
+                    // Success
+                    $_SESSION['login_attempts'] = 0;
+                    $_SESSION['lockout_time'] = null;
+                    $email = $user['email'];
+                    header("Location: example-webpage.php?email=" . urlencode($email));
+                    exit;
                 }
             }
+
+            // Failure
+            $_SESSION['login_attempts']++;
+            if ($_SESSION['login_attempts'] >= $max_attempts) {
+                $_SESSION['lockout_time'] = time();
+                $error = "Too many failed attempts. Please wait $lockout_duration seconds.";
+            } else {
+                $remaining = $max_attempts - $_SESSION['login_attempts'];
+                $error = "Invalid credentials. $remaining attempt(s) left.";
+            }
+
             $stmt->close();
         }
     }

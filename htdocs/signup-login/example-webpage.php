@@ -1,67 +1,109 @@
+<?php
+$host = 'localhost';
+$db = 'accounts';
+$user = 'root';
+$pass = '';
+
+$conn = new mysqli($host, $user, $pass, $db);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$user = null;
+if (isset($_GET['email'])) {
+    $email = $_GET['email'];
+    $stmt = $conn->prepare("SELECT username, email, first_name, last_name, bio FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
+    $stmt->close();
+}
+
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Example Webpage</title>
+    <meta charset="UTF-8">
+    <title>Example Landing Page</title>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-      body {
-        font-family: Poppins;
-        height: 100vh;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0;
-        margin: 0;
-      }
-
-      .background {
-        height: 100vh;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-image: url('alden.jpg');
-        background-repeat: no-repeat;
-        background-attachment: fixed; 
-        background-size: 100% 100%;
-        /* filter: blur(5px); */
-      }
-
-      #container {
-        z-index: 10;
-        height: 40rem;
-        width: 30rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        text-align: center;
-        background-image: url('alden.jpg');
-        background-repeat: no-repeat;
-        padding: 2rem;
-        color: white;
-
-        .logout_button {
-          height: 3rem;
-          width: 8rem;
-          border-radius: 15px;
-          border: solid 1px;
-          background-color: lightblue;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #FFF;
+            margin: 0;
+            padding: 0;
+            color: #333;
         }
-      }
+
+        header {
+            background-color: #006699;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #FFCC66;
+            border: 5px solid #993300;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #33333388;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #000000;
+        }
+
+        .value {
+            margin-bottom: 15px;
+            display: block;
+            color: #000000;
+        }
+
+        .logout-btn {
+            background-color: #006699;
+            color: #FFFFFF;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #333333;
+        }
     </style>
 </head>
 <body>
-  <div class="background">
-    <div id="container">
-      <h2>Welcome to example Webpage! You are logged in.</h2>
 
-      <!-- Log Out button -->
-      <form action="index.php" method="get">
-          <button type="submit" class="logout_button">Log Out</button>
-      </form>
-    </div>
-  </div>
+<header>
+    <h1>Example Landing Page</h1>
+</header>
+
+<div class="container">
+    <?php if ($user): ?>
+        <p><span class="label">Username:</span> <span class="value"><?= htmlspecialchars($user['username']) ?></span></p>
+        <p><span class="label">Email:</span> <span class="value"><?= htmlspecialchars($user['email']) ?></span></p>
+        <p><span class="label">First Name:</span> <span class="value"><?= htmlspecialchars($user['first_name']) ?></span></p>
+        <p><span class="label">Last Name:</span> <span class="value"><?= htmlspecialchars($user['last_name']) ?></span></p>
+        <p><span class="label">Bio:</span> <span class="value"><?= nl2br(htmlspecialchars($user['bio'])) ?></span></p>
+    <?php elseif (isset($_GET['email'])): ?>
+        <p>User not found.</p>
+    <?php else: ?>
+        <p>No user specified.</p>
+    <?php endif; ?>
+
+    <form action="index.php" method="get">
+        <button type="submit" class="logout-btn">Logout</button>
+    </form>
+</div>
+
 </body>
 </html>
