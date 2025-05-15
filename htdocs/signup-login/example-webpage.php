@@ -88,18 +88,7 @@ $conn->close();
 </header>
 
 <div class="container">
-    <?php if ($user): ?>
-        <p><span class="label">Username:</span> <span class="value"><?= htmlspecialchars($user['username']) ?></span></p>
-        <p><span class="label">Email:</span> <span class="value"><?= htmlspecialchars($user['email']) ?></span></p>
-        <p><span class="label">First Name:</span> <span class="value"><?= htmlspecialchars($user['first_name']) ?></span></p>
-        <p><span class="label">Last Name:</span> <span class="value"><?= htmlspecialchars($user['last_name']) ?></span></p>
-        <p><span class="label">Bio:</span> <span class="value"><?= nl2br(htmlspecialchars($user['bio'])) ?></span></p>
-    <?php elseif (isset($_GET['email'])): ?>
-        <p>User not found.</p>
-    <?php else: ?>
-        <p>No user specified.</p>
-    <?php endif; ?>
-
+    s
     <form action="index.php" method="get">
         <button type="submit" class="logout-btn">Logout</button>
     </form>
