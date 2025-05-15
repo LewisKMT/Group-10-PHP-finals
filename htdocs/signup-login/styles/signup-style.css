@@ -23,7 +23,7 @@ body {
 	height: 100vh;
 	width: 100%;
 	display: flex;
-	background-image: url("signup_bg.jpg");
+	background-image: url("../images/signup_bg.jpg");
 }
 
 .logo {
