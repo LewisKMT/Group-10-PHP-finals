@@ -68,8 +68,10 @@
     <h2 style="text-transform: uppercase;">COMPASS</h2>
       <nav>
         <a>Home</a>
-        <a>Services</a>
-        <a href="index.php">Log Out</a>
+        <a>Trip PLanner</a>
+        <a>Destination</a>
+        <a>Travel Logs</a>
+        <a href="index.php" style="background-color: lightblue;">Log Out</a>
       </nav>
   </header>
   <div class="logo">
