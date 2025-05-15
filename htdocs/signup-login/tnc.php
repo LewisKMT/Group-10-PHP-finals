@@ -50,7 +50,6 @@
 	<body>
 		<div class="container">
 			<h1>Terms and Conditions</h1>
-			<p><strong>Effective Date:</strong> [Insert Date]</p>
 
 			<h2>1. Use of Our Service</h2>
 			<p>
