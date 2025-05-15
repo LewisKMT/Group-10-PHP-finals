@@ -184,7 +184,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (!preg_match("/^[a-zA-Z-' ]*$/", $fname)) $fnameErr = "* Invalid first name";
 
   if (empty($idErr) && empty($snameErr) && empty($mnameErr) && empty($fnameErr)) {
-    $conn = new mysqli("localhost", "root", "", "accounts");
+    $conn = new mysqli("localhost", "root", "", "form");
     if ($conn->connect_error) die("Connection failed: " . $conn->connect_error);
     $stmt = $conn->prepare("INSERT INTO students (id, sname, mname, fname) VALUES (?, ?, ?, ?)");
     $stmt->bind_param("ssss", $id, $sname, $mname, $fname);
@@ -240,7 +240,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       <th>Last Name</th>
     </tr>
     <?php
-    $conn = new mysqli("localhost", "root", "", "accounts");
+    $conn = new mysqli("localhost", "root", "", "form");
     if ($conn->connect_error) {
       echo "<tr><td colspan='4'>Connection failed</td></tr>";
     } else {
