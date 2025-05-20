@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 
 $error = "";
 
-// Session-based lockout
+// Lockout session tracking
 if (!isset($_SESSION['login_attempts'])) {
     $_SESSION['login_attempts'] = 0;
 }
@@ -25,7 +25,7 @@ $lockout_duration = 60; // seconds
 $max_attempts = 3;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $input = trim($_POST["email"]); // Can be username or email
+    $input = trim($_POST["email"]); // Can be email or username
     $password = $_POST["password"];
 
     // Lockout logic
@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } elseif (strlen($password) < 8) {
             $error = "Password must be at least 8 characters.";
         } else {
-            $stmt = $conn->prepare("SELECT email, password FROM users WHERE email = ? OR username = ?");
+            $stmt = $conn->prepare("SELECT email, username, password FROM users WHERE email = ? OR username = ?");
             $stmt->bind_param("ss", $input, $input);
             $stmt->execute();
             $result = $stmt->get_result();
@@ -56,13 +56,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Success
                     $_SESSION['login_attempts'] = 0;
                     $_SESSION['lockout_time'] = null;
-                    $email = $user['email'];
-                    header("Location: example-webpage.php?email=" . urlencode($email));
+
+                    // Save user session
+                    $_SESSION['user'] = [
+                        'email' => $user['email'],
+                        'username' => $user['username']
+                    ];
+
+                    header("Location: home.php");
                     exit;
                 }
             }
 
-            // Failure
+            // Failed login
             $_SESSION['login_attempts']++;
             if ($_SESSION['login_attempts'] >= $max_attempts) {
                 $_SESSION['lockout_time'] = time();
