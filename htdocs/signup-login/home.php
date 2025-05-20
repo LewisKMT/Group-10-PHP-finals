@@ -71,7 +71,7 @@
         <a>Trip PLanner</a>
         <a>Destination</a>
         <a>Travel Logs</a>
-        <a href="index.php" style="background-color: lightblue;">Log Out</a>
+        <a href="logout.php" style="background-color: lightblue;">Log Out</a>
       </nav>
   </header>
   <div class="logo">
