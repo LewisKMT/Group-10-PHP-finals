@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $mail->SMTPSecure = 'tls';                 // Use 'ssl' if needed
             $mail->Port = 587;                         // Use 465 for SSL
 
-            $mail->setFrom('your-email@gmail.com', 'Your App Name');
+            $mail->setFrom('your-email@gmail.com', 'Compass Trip Planner');
             $mail->addAddress($email);
 
             $mail->Subject = 'Password Reset Request';
