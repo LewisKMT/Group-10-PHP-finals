@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         'username' => $user['username']
                     ];
 
-                    header("Location: home.php");
+                    header("Location: compass-site/index.php");
                     exit;
                 }
             }
