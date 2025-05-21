@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 14, 2025 at 09:37 AM
+-- Generation Time: May 21, 2025 at 05:58 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,6 +24,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `trips`
+--
+
+CREATE TABLE `trips` (
+  `id` int(11) NOT NULL,
+  `city` varchar(100) NOT NULL,
+  `country` varchar(100) NOT NULL,
+  `activities` text NOT NULL,
+  `info` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -40,8 +54,21 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `reset_token`, `token_expiry`, `first_name`, `last_name`, `bio`) VALUES
+(1, 'JMTrinidad', '2021-103195@rtu.edu.ph', '$2y$10$RM46/h14R6CrdBGCyxsfaO6cju6Hifj1XDNKM8obJIAzNfFsF7Jiu', NULL, NULL, '', '', '');
+
+--
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `trips`
+--
+ALTER TABLE `trips`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `users`
@@ -55,10 +82,16 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `trips`
+--
+ALTER TABLE `trips`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
