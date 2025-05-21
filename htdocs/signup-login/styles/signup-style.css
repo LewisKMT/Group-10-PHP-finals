@@ -27,8 +27,10 @@ body {
 }
 
 .logo {
-	width: 350px;
-	height: 350px;
+	position: absolute;
+	height: 200px;
+	margin-top: -48px;
+	margin-left: 24px;
 }
 
 .logo img {

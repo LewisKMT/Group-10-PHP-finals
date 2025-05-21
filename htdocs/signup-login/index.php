@@ -21,13 +21,14 @@
     }
 
     .image-section {
-      width: 60%;
-      background-color: #ccc;
+      width: 1125px;
+      background-color: #006699;
       display: flex;
       justify-content: center;
       align-items: center;
       overflow: hidden;
       height: 100vh;
+      /* margin-left: -140px; */
     }
 
     .image-section img {
@@ -39,8 +40,8 @@
     }
 
     .right-section {
-      width: 40%;
-      background: linear-gradient(to bottom right, white, rgba(255, 204, 102, 0.62));
+      width: 100%;
+      background: linear-gradient(to bottom right, #006699, #ffcc66);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -179,9 +180,9 @@
 </head>
 <body>
 
-  <div class="image-section">
+  <!-- <div class="image-section">
      <img src="images/sidecompass.jpg" alt="Side Image">
-  </div>
+  </div> -->
 
   <div class="right-section">
     <div class="logo">
