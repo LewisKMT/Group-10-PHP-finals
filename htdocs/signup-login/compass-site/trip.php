@@ -38,6 +38,7 @@
 								<li class="main_nav_item"><a href="#">Trip Planner</a></li>
 								<li class="main_nav_item"><a href="destination.php">Destinations</a></li>
 								<li class="main_nav_item"><a href="logs.php">Travel Logs</a></li>
+                <li class="main_nav_item"><a href="../logout.php">Sign Out</a></li>
 							</ul>
 						</div>
 						
